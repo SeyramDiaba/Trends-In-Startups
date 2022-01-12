@@ -1,0 +1,61 @@
+/* Inspect table*/
+SELECT * FROM startups;
+
+/* Total number of companies in table*/
+SELECT COUNT(*)  FROM startups;
+
+/*total value of all companies in this table*/
+SELECT SUM(valuation) AS 'total value' FROM startups;
+
+/* highest amount raised by a startup*/
+SELECT MAX(raised) AS 'max_raised' FROM startups;
+
+/*maximum amount of money raised, during ‘Seed’ stage*/
+SELECT MAX(raised) AS 'max_raised_seed' 
+FROM startups
+WHERE stage = 'Seed';
+
+/*Year oldest company on the list was founded*/
+SELECT name, MIN(founded) AS 'oldest company'
+FROM startups;
+
+/* Average valuation*/
+SELECT AVG(valuation) FROM startups;
+
+/* Average valuation in each category */
+SELECT category,AVG(valuation) AS 'avg_valuation_startups'
+FROM startups
+GROUP BY category;
+
+/* Rounded Average valuation in each category */
+SELECT category,ROUND(AVG(valuation),2) AS 'avg_valuation_startups'
+FROM startups
+GROUP BY category;
+
+/* Rounded Average valuation in each category ordered in descending order*/
+SELECT category,ROUND(AVG(valuation),2) AS 'avg_valuation_startups'
+FROM startups
+GROUP BY category
+ORDER BY 2 DESC;
+
+/* name of each category with the total number of companies that belong to it.*/
+SELECT category,name, COUNT(*)
+FROM startups
+GROUP BY 1;
+
+/* name of each category with the total number of companies that belong to it.*/
+SELECT category,name, COUNT(*)
+FROM startups
+GROUP BY 1
+HAVING COUNT(*)>3;
+
+/*average size of a startup in each location*/
+SELECT location, AVG(employees) AS 'avg_size'
+FROM startups
+GROUP BY location;
+
+/*average size of a startup in each location greater than 500 */
+SELECT location, AVG(employees) AS 'avg_size_g500'
+FROM startups
+GROUP BY location
+HAVING avg_size_g500 >500;
